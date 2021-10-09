@@ -1,0 +1,48 @@
+@font-face{font-family:'YS Text';font-weight:400;font-style:normal;font-stretch:normal;src:url(//yastatic.net/s3/home/fonts/ys/1/text-regular.woff2) format('woff2'),
+url(//yastatic.net/s3/home/fonts/ys/1/text-regular.woff) format('woff')}@font-face{font-family:'YS Text';font-weight:500;font-style:normal;font-stretch:normal;  src:url(//yastatic.net/s3/home/fonts/ys/1/text-medium.woff2) format('woff2'),url(//yastatic.net/s3/home/fonts/ys/1/text-medium.woff) format('woff')}
+@font-face{font-family:'YS Text';font-weight:700;font-style:normal;font-stretch:normal;src:url(//yastatic.net/s3/home/fonts/ys/1/text-bold.woff2) format('woff2'),url(//yastatic.net/s3/home/fonts/ys/1/text-bold.woff) format('woff')}.font_loaded body{font-family:'YS Text','Helvetica Neue',Arial,sans-serif;-webkit-font-feature-settings:'liga','kern';-moz-font-feature-settings:'liga','kern';font-feature-settings:'liga','kern'}
+
+:root {
+    --grey-font: #7F8285;
+    --grey-bg: #E6E6E6
+}
+
+body {
+    background: #FFFFFF;
+}
+
+.header {
+    display: flex;
+    justify-content: start;
+    width: 100%;
+    margin: 0 100px;
+    paddin-top: 10px;
+    height: 48px;
+}
+
+.header__label {
+    display: block;
+    font-family: YS Text;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 24px;
+    line-height: 28px;
+    color: var(--grey-font);
+}
+
+.header__button {
+    background-color: var(--grey-bg);
+    border-radius: 4px;
+    height: 28px;
+    width: 87px;
+    align-items: center;
+    cursor: pointer;
+    border: 0;
+}
+
+.header__button > span {
+    font-family: YS Text;
+    font-size: 13px;
+    line-height: 28px;
+    font-weight: 400;
+}
