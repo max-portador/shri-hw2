@@ -293,7 +293,7 @@
         margin-left: 8px;
     }
 
-    .title__btns span {
+    .title__span {
     display: none;
     }
 
@@ -373,19 +373,9 @@
         color: var(--green-font);
     }
 
-
-    #failed {
-        color: var(--red-font);
-    }
-
-    #updated {
-        color: var(--updated-font);
-    }
-
     .card__message {
-        font-size: 15px;
+        font-size: var(--font-medium);
     }
-
 
     .card__bottom {
         display: grid;
@@ -407,6 +397,7 @@
     .card__icon {
         display: grid;
         opacity: 0.3;
+        z-index: -1;
     }
 
     .card__branch {
@@ -417,6 +408,7 @@
         display: grid;
         margin-right: 10px;
         opacity: 0.65;
+        z-index: -1;
     }
 
     .card__author {
@@ -428,6 +420,7 @@
     .card__iconuser{
         display: grid;
         opacity: 0.3;
+        z-index: -1;
     }
 
     .card__username {
@@ -440,6 +433,7 @@
         opacity: 0.65;
         column-gap: 10px;
         font-size: var(--font-small);
+        z-index: -1;
     }
 
     .card__datetimeup, .card__datetimefloor{

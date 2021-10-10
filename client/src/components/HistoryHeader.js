@@ -1,6 +1,6 @@
 import React, {useContext} from "react";
 import {AuthContext} from "../hooks/auth.context";
-import playSVG from '../assets/play.svg'
+import RunBuildModal from "../Modal/RunBuildModal";
 import gearSVG from '../assets/gear.svg'
 
 export const HistoryHeader = () => {
@@ -12,13 +12,7 @@ export const HistoryHeader = () => {
                     {repository}
                 </label>
                 <section className="title__btns">
-                    <button className="title__button btn_grey" type="submit">
-                        <img src={playSVG}>
-                        </img>
-                        <span>
-                Run build
-            </span>
-                    </button>
+                    <RunBuildModal/>
                     <button className="title__button btn_grey" type="submit">
                         <img src={gearSVG}>
                         </img>

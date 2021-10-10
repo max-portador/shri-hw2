@@ -49,14 +49,14 @@ export const BuildCard = ({data, status}) => {
                             <img className="card__calendar" src={calendarSVG}>
                             </img>
                             <span className="card__date">
-                            21 янв, 03:06
+                            {data.date}
                         </span>
                         </div>
                         <div className="card__datetimefloor">
                             <img className="card__calendar" src={timerSVG}>
                             </img>
                             <span className="card__date">
-                            1 ч 20 мин
+                            {data.duration}
                         </span>
                         </div>
                     </section>
