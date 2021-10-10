@@ -1,7 +1,15 @@
 import React from "react";
 import tools from "../assets/tools.svg"
+import {useHistory} from "react-router-dom";
 
 export function Main(){
+    const history = useHistory()
+
+    const redirectToSettingsPage = event => {
+        event.preventDefault()
+        history.push('/settings')
+    }
+
     return (
     <main className="main">
         <div className="main__content">
@@ -15,7 +23,9 @@ export function Main(){
                         connection and synchronization settings
                     </span>
             </label>
-            <button type="submit" className="main__button btn_yellow">
+            <button type="submit" className="main__button btn_yellow"
+                    onClick={redirectToSettingsPage}
+            >
                     <span>
                         Open settings
                     </span>

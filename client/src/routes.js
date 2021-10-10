@@ -4,14 +4,21 @@ import {HistoryPage} from "./pages/HistoryPage";
 import {StartPage} from "./pages/StartPage";
 import {SettingsPage} from "./pages/SettingsPage";
 
+
+
+
 export const useRoutes = isAuthenticated => {
+    console.log("isAuthenticated " + isAuthenticated)
     if (isAuthenticated) {
         return (
             <Switch>
                 <Route path="/history" exact>
                     <HistoryPage />
                 </Route>
-                <Redirect to="/history"/>
+                <Route path="/settings" exact>
+                    <SettingsPage />
+                </Route>
+                <Redirect to="/history" />
             </Switch>
         )
     }
@@ -23,7 +30,7 @@ export const useRoutes = isAuthenticated => {
             <Route path="/settings" exact>
                 <SettingsPage />
             </Route>
-            <Redirect to="/"/>
+            <Redirect to="/" />
         </Switch>
     )
 }

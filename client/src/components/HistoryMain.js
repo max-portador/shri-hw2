@@ -10,7 +10,7 @@ export const HistoryMain = () => {
             <main className="history">
                 <div className="history__cards">
                     { builds.map(build => {
-                            return <BuildCard data={build} status={status}/>
+                            return <BuildCard data={build} status={status} key={build.num}/>
                         })
                     }
                 </div>

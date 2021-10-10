@@ -3,6 +3,7 @@ import {Footer} from "../components/Footer";
 import {HistoryHeader} from "../components/HistoryHeader";
 import {HistoryMain} from "../components/HistoryMain";
 import {HistoryContext} from "../hooks/history.context";
+import "./HistoryPage.css"
 
 
 export const HistoryPage = () => {

@@ -1,0 +1,231 @@
+.history {
+    grid-area: main;
+    display: grid;
+    height: fit-content;
+}
+
+.history__cards {
+    display: grid;
+    align-content: flex-start;
+    margin-bottom: 8px;
+
+}
+
+.history__card {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    grid-template-rows: repeat(2, max-content);
+    margin-top: 8px;
+    padding: 16px 12px;
+
+    height: fit-content;
+
+    box-shadow: 0 0 1px rgba(67, 68, 69, 0.3), 0px 1px 1px rgba(67, 68, 69, 0.3);
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.history__card * {
+    cursor: pointer;
+}
+
+.history__card:hover {
+    box-shadow: 0px 0px 1px rgba(67, 68, 69, 0.3), 0px 2px 8px rgba(67, 68, 69, 0.3);
+}
+
+
+.card__circle {
+    display: grid;
+    width: 16px;
+    height: 16px;
+    margin: 1px 9px 1px 1px;
+}
+
+.card__content{
+    display: grid;
+    grid-template: repeat(3, auto) / auto;
+}
+
+hr {
+    margin: 8px 0;
+    padding: 0;
+    height: 1px;
+    border: none;
+    border-top: 1px solid var(--hr-border);
+}
+
+.card__meta {
+    padding: 0;
+    display: grid;
+    grid-template: auto min-content / 1fr;
+    line-height: 20px;
+    row-gap: 8px;
+}
+
+.card__title {
+    display: grid;
+    row-gap: 8px;
+}
+
+.card__num {
+    font-weight: var(--weight-bold);
+    font-size: 16px;
+    color: var(--green-font);
+}
+
+.card__message {
+    font-size: var(--font-medium);
+}
+
+.card__bottom {
+    display: grid;
+    row-gap: 8px;
+    grid-template: repeat(2, auto) / auto;
+    align-items: center;
+    font-size: var(--font-small);
+    line-height: 16px;
+}
+
+.card__commit {
+    display: grid;
+    grid-template-columns: repeat(3, max-content);
+    justify-content: start;
+    align-items: center;
+    column-gap: 4px;
+}
+
+.card__icon {
+    display: grid;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.card__branch {
+    display: grid;
+}
+
+.card__hash {
+    display: grid;
+    margin-right: 10px;
+    opacity: 0.65;
+    z-index: -1;
+}
+
+.card__author {
+    display: grid;
+    grid-template-columns: repeat(2, max-content);
+    column-gap: 4px;
+}
+
+.card__iconuser{
+    display: grid;
+    opacity: 0.3;
+    z-index: -1;
+}
+
+.card__username {
+    display: grid;
+}
+
+.card__datetime {
+    display: grid;
+    grid-template: 1fr/ repeat(2, max-content);
+    opacity: 0.65;
+    column-gap: 10px;
+    font-size: var(--font-small);
+    z-index: -1;
+}
+
+.card__datetimeup, .card__datetimefloor{
+    display: grid;
+    align-items: center;
+    justify-content: start;
+    grid-template-columns: repeat(2, max-content);
+}
+
+.card__calendar{
+    display: grid;
+    opacity: 0.3;
+    margin-right: 5px;
+}
+
+.card__date{
+    display: grid;
+    line-height: 16px;
+    letter-spacing: 0.06px;
+}
+
+.history__showmore{
+    display: grid;
+    margin-bottom: 20px;
+    width: fit-content;
+    height: fit-content;
+}
+
+.history__showmore > span {
+    font-size: 13px;
+    line-height: 28px;
+    margin: 0 13px;
+}
+
+@media (min-width: 600px) {
+    hr {
+        display: none;
+    }
+
+    .history__card {
+        grid-template-columns: auto 1fr;
+        padding: 10px 12px
+    }
+
+    .card__content {
+        grid-template: 1fr/ 1fr max-content;
+    }
+
+    .card__meta {
+        grid-template: 1fr 1fr/ 1fr;
+    }
+
+    .card__datetime {
+        justify-self: end;
+        grid-template-rows: repeat(2, 1fr );
+    }
+
+    .card__meta {
+        margin: 0 10px;
+        padding: 0;
+        grid-template-rows: 1fr;
+        align-items: center;
+        row-gap: 8px;
+    }
+
+    .card__title{
+        grid-template-columns: repeat(2, auto);
+        column-gap: 4px;
+        justify-content: start;
+
+    }
+
+    .card__bottom{
+        grid-template-columns: repeat(2, max-content);
+        column-gap: 10px;
+        row-gap: 0;
+    }
+
+    .card__circle {
+        width: 21px;
+        height: 21px;
+    }
+
+    .card__num {
+        font-weight: var(--weight-bold);
+        font-size: 18px;
+        line-height: 20px;
+        color: var(--green-font);
+    }
+
+    .card__datetime {
+        grid-template: repeat(2, 1fr) / 1fr;
+        row-gap: 12px;
+    }
+}

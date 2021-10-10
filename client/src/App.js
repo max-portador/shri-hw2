@@ -8,14 +8,11 @@ import {AuthContext} from "./hooks/auth.context";
 
 function App() {
     const {
-            login,
-            logout,
-            repository,
-            buildCommand,
-            mainBranch,
-            syncTimeout } = useAuth()
+            login, logout,
+            repository, buildCommand, mainBranch, syncTimeout } = useAuth()
     const isAuthenticated = !! repository
     const routes = useRoutes(isAuthenticated)
+
   return (
       <AuthContext.Provider value={{
           login, logout,

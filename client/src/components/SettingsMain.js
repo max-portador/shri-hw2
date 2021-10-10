@@ -1,25 +1,54 @@
 import React, {useContext, useState} from "react";
 import {AuthContext} from "../hooks/auth.context";
+import {useHistory} from "react-router-dom";
 
 export function SettingsMain(){
     const auth = useContext(AuthContext)
-    const [state, setState] = useState( {
+    const history = useHistory()
+    const [state, setState] = useState({
         repository: auth.repository,
         buildCommand: auth.buildCommand,
         mainBranch: auth.mainBranch,
-        syncTimeout: auth.syncTimeout
-        }
-      )
+        syncTimeout: auth.syncTimeout,
+    })
+
+    const [inputStyle, setInputStyle] = useState({})
+    const bordercolor = "#E00000"
+
+    const inputStyleHandler = (name) => {
+        setInputStyle({...inputStyle, [name]: bordercolor})
+    }
 
     const inputHandler = event => {
-        setState( {...state, [event.target.name]: event.target.value})
+        setState({...state, [event.target.name]: event.target.value})
     }
 
     const loginHandler = () => {
+
+        if (!state.repository) {
+            inputStyleHandler("repository")
+            return
+        }
+        setInputStyle({})
+        if (!state.buildCommand) {
+            inputStyleHandler("buildCommand")
+            return;
+        }
+        setInputStyle({})
+
         auth.login(state.repository,
-                    state.buildCommand,
-                    state.mainBranch,
-                    state.syncTimeout)
+            state.buildCommand,
+            state.mainBranch,
+            state.syncTimeout)
+        setInputStyle({})
+        history.push('/history')
+
+    }
+
+    const logoutHandler = event => {
+        event.preventDefault()
+        auth.logout()
+        history.push('/')
     }
 
     return (
@@ -45,6 +74,8 @@ export function SettingsMain(){
                            placeholder="user-name/repo-name"
                            name="repository"
                            onChange={inputHandler}
+                           value={state.repository || ""}
+                           style={{borderColor: inputStyle.repository || "" }}
                     >
                     </input>
 
@@ -61,6 +92,7 @@ export function SettingsMain(){
                            value={state.buildCommand}
                            name="buildCommand"
                            onChange={inputHandler}
+                           style={{borderColor: inputStyle.buildCommand || "" }}
                           >
                     </input>
 
@@ -94,9 +126,13 @@ export function SettingsMain(){
                     </div>
 
                     <div className="settings__buttons">
-                        <button className="btn_yellow"
-                        onClick={loginHandler}><span>Save</span></button>
-                        <button className="btn_grey"><span>Cancel</span></button>
+                        <button className="btn_yellow" onClick={loginHandler}>
+                            <span>Save</span>
+                        </button>
+
+                        <button className="btn_grey" onClick={logoutHandler}  >
+                            <span>Cancel</span>
+                        </button>
                     </div>
                 </div>
             </main>
