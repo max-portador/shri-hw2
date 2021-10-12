@@ -1,9 +1,19 @@
+@media (max-width: 600px) {
+    .settings__loader{
+        padding-top: 0;
+        align-self: center;
+    }
+}
+
 .settings__loader{
     position: fixed;
     display: grid;
-    align-self: center;
+    align-self: start;
+    padding-top: 15rem;
     justify-self: center;
 }
+
+
 
 .lds-grid {
     display: inline-block;

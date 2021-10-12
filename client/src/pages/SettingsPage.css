@@ -45,6 +45,7 @@
     margin-top: 6px;
     margin-bottom: 18px;
     width: 100%;
+
 }
 
 .settings__input::-webkit-search-cancel-button {
@@ -99,9 +100,10 @@
     font-size: var(--font-small);
 }
 .error_input {
+    outline: none !important;
     border-color: var(--red-hover-font);
-    background-color: rgba(255, 130, 0, .05);
-    box-shadow: none;
+    box-shadow: 0 0 3px var(--red-hover-font);
+    background-color: #fff;
 }
 
 

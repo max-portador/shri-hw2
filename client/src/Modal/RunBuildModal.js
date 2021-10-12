@@ -19,9 +19,8 @@ export default () => {
         isOpen: false,
         isLoading: false})
 
-    const { register, handleSubmit, formState } = useForm({
-        mode: "onBlur",
-        reValidateMode: "onSubmit",
+    const { register, handleSubmit, formState, reset, clearErrors } = useForm({
+        mode: "onSubmit",
         resolver: yupResolver(scheme)
     })
 
@@ -37,11 +36,27 @@ export default () => {
             isLoading: true
         })
         setTimeout(() => {
+            clearErrors()
+            reset({"commitHash": ""})
             setState({
                 isOpen: false,
                 isLoading: false
             })
         }, 2000)
+    }
+
+    const onCancel = () => {
+        clearErrors()
+        reset({"commitHash": ""})
+        setState({
+            isOpen: false,
+            isLoading: false
+        })
+    }
+
+    const checkKeyDown = event => {
+        if (event.keyCode === 9) {event.preventDefault()}
+        if (event.keyCode === 27) {onCancel()}
     }
 
 
@@ -56,7 +71,7 @@ export default () => {
             </span>
             </button>
             { state.isOpen && (
-                <div className="modal" onClick={checkClick}>
+                <div className="modal" onClick={checkClick} onKeyDown={checkKeyDown}>
                         <form className="modal__body" onSubmit={handleSubmit(onRunningBuild)}>
                             { state.isLoading && (Loader())}
                             <label className="modal__title">
@@ -79,13 +94,13 @@ export default () => {
                                    autoFocus={true}
                                    defaultValue=""
                                    {...register("commitHash")}
-                                   onKeyDown={(e) => { if (e.keyCode === 9) e.preventDefault() }}
+                                   onKeyDown={checkKeyDown}
                             />
-                            <div className="modal__buttons">
-                                <button className={(state.isLoading ? " btn_disabled" : "btn_yellow")}
+                            <div className="modal__buttons" onKeyDown={checkKeyDown}>
+                                <button className={(state.isLoading ? " btn_disabled" : "btn_yellow")} type="submit"
                                 ><span>Run build</span></button>
-                                <button className={(state.isLoading ? " btn_disabled" : "btn_grey")}
-                                        onClick={() => setState({isOpen: false})}
+                                <button className={(state.isLoading ? " btn_disabled" : "btn_white")}
+                                        onClick={onCancel}
                                 ><span>Cancel</span></button>
                             </div>
                         </form>

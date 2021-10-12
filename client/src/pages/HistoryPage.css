@@ -1,13 +1,12 @@
 .history {
     grid-area: main;
     display: grid;
-    height: fit-content;
+    max-height: 50vh - var(--footer-height);
 }
 
 .history__cards {
     display: grid;
     align-content: flex-start;
-    margin-bottom: 8px;
 
 }
 
@@ -15,7 +14,7 @@
     display: grid;
     grid-template-columns: auto 1fr;
     grid-template-rows: repeat(2, max-content);
-    margin-top: 8px;
+    margin-bottom: 8px;
     padding: 16px 12px;
 
     height: fit-content;

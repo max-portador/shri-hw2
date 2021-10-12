@@ -30,6 +30,7 @@
         --yellow-focus-border: #B38F00;
 
         --margins: 16px;
+        --footer-height: 68px;
     }
 
 
@@ -70,6 +71,11 @@
         background-color: var(--grey-bg)
     }
 
+    .btn_white {
+        background-color: #FFFFFF;
+        border: 1px solid var(--grey-border);
+    }
+
     .btn_yellow {
         background-color: var(--yellow-bg)
     }
@@ -101,8 +107,8 @@
         display: grid;
         grid-template-columns: 1fr 1fr;
         align-items: center;
-        height: 52px;
         font-size: var(--font-small);
+        padding: 12px 0;
     }
 
     .header__label {
@@ -111,6 +117,7 @@
         font-size: var(--font-medium);
         justify-self: start;
         color: var(--grey-font);
+        line-height: 28px;
     }
 
     .header__button,
@@ -191,7 +198,7 @@
     .title__label {
         display: grid;
         font-weight: var(--weight-bold);
-        font-size: var(--font-big);
+        font-size: 18px;
     }
 
     .title__btns {
@@ -211,14 +218,22 @@
     @media (min-width: 600px) {
         :root{
             --margins: 100px;
+            --footer-height: 34px;
         }
 
         .header {
-            height: 48px;
+            grid-template-columns: 1fr 1fr;
+            align-items: center;
+            margin-bottom: 0px;
+            padding: 10px 0;
         }
 
         .header__label{
             font-size: var(--font-big);
+        }
+        .title__label{
+            font-size: var(--font-big);
+            line-height: 30px;
         }
 
         .header__button > span {
@@ -227,13 +242,6 @@
             margin-right: 13px;
             font-size: var(--font-small);
             line-height: 28px;
-        }
-
-        .title{
-            grid-template-columns: 1fr 1fr;
-            align-items: center;
-            margin-bottom: 0px;
-            padding: 10px 0;
         }
 
         .main__content > label {
