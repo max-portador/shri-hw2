@@ -13,7 +13,7 @@ export function Main(){
     return (
     <main className="main">
         <div className="main__content">
-            <img src={tools}>
+            <img src={tools} alt="tools">
             </img>
             <label>
                     <span>

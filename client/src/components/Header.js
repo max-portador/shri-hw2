@@ -22,7 +22,7 @@ export const Header = () => {
                 type="submit"
                 onClick={redirectToSettingsPage}
             >
-                <img src={gear}>
+                <img src={gear} alt="settings">
                 </img>
                 <span>
             Settings

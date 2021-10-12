@@ -35,7 +35,7 @@
     line-height: 18px;
 }
 
-.settings__input {
+.settings__input  {
     display: grid;
     border: 2px solid var(--grey-border);
     text-indent: 13px;
@@ -87,6 +87,12 @@
 
 .settings__buttons span {
     margin: 0 20px;
+}
+
+.error{
+    display: inline;
+    color: var(--red-font);
+    font-size: var(--font-small);
 }
 
 @media (min-width: 600px) {

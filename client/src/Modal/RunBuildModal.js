@@ -12,7 +12,7 @@ export default class RunBuildModal extends React.Component{
             <button className="title__button btn_grey"
                     type="submit"
                     onClick={() => this.setState({isOpen: true})}>
-                <img src={playSVG}>
+                <img src={playSVG} alt="run">
                 </img>
                 <span className="title__span">
                 Run build

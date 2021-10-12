@@ -9,7 +9,7 @@ export const BuildCard = ({data, status}) => {
     return (
         <div className="history__card">
             <img className="card__circle"
-                 src={status[_status].icon}>
+                 src={status[_status].icon} alt="status">
             </img>
             <div className="card__content">
                 <section className="card__meta">
@@ -24,7 +24,7 @@ export const BuildCard = ({data, status}) => {
                     </div>
                     <div className="card__bottom">
                         <div className="card__commit">
-                            <img className="card__icon" src={commitSVG}>
+                            <img className="card__icon" src={commitSVG} alt="commit">
                             </img>
                             <label className="card__branch">
                                 {data.branch}
@@ -35,7 +35,7 @@ export const BuildCard = ({data, status}) => {
                         </div>
 
                         <div className="card__author">
-                            <img className="card__iconuser" src={userSVG}>
+                            <img className="card__iconuser" src={userSVG} alt="user">
                             </img>
                             <label className="card__username">
                                 {data.author}
@@ -43,17 +43,17 @@ export const BuildCard = ({data, status}) => {
                         </div>
                     </div>
                 </section>
-                <hr></hr>
+                <hr/>
                     <section className="card__datetime">
                         <div className="card__datetimeup">
-                            <img className="card__calendar" src={calendarSVG}>
+                            <img className="card__calendar" src={calendarSVG} alt="calendar">
                             </img>
                             <span className="card__date">
                             {data.date}
                         </span>
                         </div>
                         <div className="card__datetimefloor">
-                            <img className="card__calendar" src={timerSVG}>
+                            <img className="card__calendar" src={timerSVG} alt="timer">
                             </img>
                             <span className="card__date">
                             {data.duration}

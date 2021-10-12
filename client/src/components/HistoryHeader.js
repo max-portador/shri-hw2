@@ -26,7 +26,7 @@ export const HistoryHeader = () => {
                             type="submit"
                             onClick={redirectToSettingsPage}
                            >
-                        <img src={gearSVG}>
+                        <img src={gearSVG} alt="settings">
                         </img>
                     </button>
                 </section>
