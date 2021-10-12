@@ -5,7 +5,10 @@ import {useForm} from "react-hook-form"
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
 import {SettingsInput} from "./SettingsInput"
+import Loader from "./Loader";
 
+
+// Прописываем правила валидации полей input
 const scheme = yup.object().shape({
     repository: yup.string()
                 .required("GitHub repository is a required field")
@@ -29,6 +32,8 @@ export function SettingsMain(){
 
     const auth = useContext(AuthContext)
     const history = useHistory()
+    const [loading, setLoading] = useState(false)
+
     const { register, handleSubmit, formState } = useForm({
         mode: "onBlur",
         reValidateMode: "onSubmit",
@@ -36,8 +41,12 @@ export function SettingsMain(){
     })
 
     const loginHandler = data => {
-        auth.login(data.repository, data.buildCommand, data.mainBranch, data.syncTimeout)
-        history.push("/history")
+        setLoading(true)
+        setTimeout( () => {
+            auth.login(data.repository, data.buildCommand, data.mainBranch, data.syncTimeout)
+            setLoading(false)
+            history.push("/history")
+        }, 2000)
     }
 
     const logoutHandler = event => {
@@ -48,8 +57,11 @@ export function SettingsMain(){
 
     return (
         <React.Fragment>
+            {(loading && Loader())}
             <main className="settings">
+
                 <form className="settings__container" onSubmit={handleSubmit(loginHandler)} >
+
                     <label className="settings__title">Setting</label>
                     <label className="settings__subtitle">
                         Configure repository connection and synchronization settings.
@@ -57,12 +69,17 @@ export function SettingsMain(){
                     <div className="settings__label">
                         <label>GitHub repository</label>
                        <span className="asterics"> * </span>
-                        {formState.errors.repository && (
-                            <div className="error">{formState.errors.repository.message}</div>
-                        )}
+                        {
+
+                            formState.errors.repository &&
+                            ( <div className="error">{formState.errors.repository.message}
+                            </div>)
+                        }
                     </div>
 
-                    <SettingsInput className={"settings__input"}
+                    <SettingsInput className={(
+                        formState.errors.repository ? "settings__input error_input" : "settings__input"
+                    )}
                                    placeholder="user-name/repo-name"
                                    id="repository"
                                    name="repository"
@@ -78,7 +95,9 @@ export function SettingsMain(){
                             <div className="error">{formState.errors.buildCommand.message}</div>
                         )}
                     </div>
-                    <SettingsInput className= "settings__input"
+                    <SettingsInput className={(
+                        formState.errors.buildCommand ? "settings__input error_input" : "settings__input"
+                    )}
                                    id="buildCommand"
                                    name="buildCommand"
                                    defaultValue={auth.buildCommand}
@@ -90,7 +109,9 @@ export function SettingsMain(){
                             <div className="error">{formState.errors.mainBranch.message}</div>
                         )}
                     </div>
-                    <SettingsInput className="settings__input"
+                    <SettingsInput className={(
+                        formState.errors.mainBranch ? "settings__input error_input" : "settings__input"
+                    )}
                            id="mainBranch"
                            name="mainBranch"
                            defaultValue={auth.mainBranch}
@@ -98,8 +119,10 @@ export function SettingsMain(){
                     />
                     <div className="settings__sync">
                         <span className="settings__label">Synchronize every</span>
-                        <SettingsInput className="settings__input"
-                               type="text"
+                        <SettingsInput className={(
+                            formState.errors.syncTimeout ? "settings__input error_input" : "settings__input"
+                        )}
+                               type="number"
                                id="sync"
                                name="syncTimeout"
                                defaultValue={auth.syncTimeout}
@@ -112,11 +135,13 @@ export function SettingsMain(){
                         <div className="error">{formState.errors.syncTimeout.message}</div>
                     )}
                     <div className="settings__buttons">
-                        <button className="btn_yellow" type="submit">
+                        <button className={(loading ? " btn_disabled" : "btn_yellow")}
+                                type="submit">
                             <span>Save</span>
                         </button>
 
-                        <button className="btn_grey" onClick={logoutHandler}  >
+                        <button className={(loading ? " btn_disabled" : "btn_grey")}
+                                onClick={logoutHandler}  >
                             <span>Cancel</span>
                         </button>
                     </div>

@@ -1,6 +1,6 @@
 import React, {useContext} from "react"
 import {Footer} from "../components/Footer";
-import {HistoryHeader} from "../components/HistoryHeader";
+import {Header} from "../components/Header";
 import {HistoryMain} from "../components/HistoryMain";
 import {HistoryContext} from "../hooks/history.context";
 import "./HistoryPage.css"
@@ -13,7 +13,7 @@ export const HistoryPage = () => {
     return (
         <HistoryContext.Provider value={{builds, status}}>
             <React.Fragment>
-                <HistoryHeader/>
+                <Header/>
                 <HistoryMain/>
                 <Footer/>
             </React.Fragment>

@@ -35,7 +35,7 @@
     line-height: 18px;
 }
 
-.settings__input  {
+.settings__input {
     display: grid;
     border: 2px solid var(--grey-border);
     text-indent: 13px;
@@ -73,6 +73,10 @@
     padding-right: 13px;
 }
 
+#sync::-webkit-inner-spin-button{
+    -webkit-appearance: none;
+}
+
 .settings__buttons {
     display: grid;
     row-gap: 12px;
@@ -94,6 +98,12 @@
     color: var(--red-font);
     font-size: var(--font-small);
 }
+.error_input {
+    border-color: var(--red-hover-font);
+    background-color: rgba(255, 130, 0, .05);
+    box-shadow: none;
+}
+
 
 @media (min-width: 600px) {
 

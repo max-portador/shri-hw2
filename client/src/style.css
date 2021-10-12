@@ -58,12 +58,13 @@
         border: 2px solid rgba(0, 0, 0 ,0);
     }
 
-    .btn_disabled {
+    .btn_disabled,
+    .btn_disabled:hover,
+    .btn_disabled:active {
         background-color: var(--grey-dis-bg) !important;
         color: var(--grey-dis-font);
         cursor: default;
     }
-
 
     .btn_grey {
         background-color: var(--grey-bg)
@@ -103,7 +104,7 @@
         height: 52px;
         font-size: var(--font-small);
     }
-    
+
     .header__label {
         display: grid;
         font-weight: var(--weight-bold);;
@@ -111,7 +112,7 @@
         justify-self: start;
         color: var(--grey-font);
     }
-    
+
     .header__button,
     .title__button {
         display: grid;
@@ -129,7 +130,7 @@
         margin: 8px;
         height: 12px;
     }
-    
+
     .header__button > span,
     .title__button > span {
         display: none;
@@ -206,47 +207,6 @@
     }
 
 /* ============================================= */
-
-    .footer{
-        display: grid;
-        grid-area: footer;
-        grid-template-columns: 1fr;
-        row-gap: 8px;
-
-        padding: 12px var(--margins);
-        background-color: var(--grey-bg);
-        line-height: 18px;
-
-        font-size: var(--font-small);
-        letter-spacing: 0.06px;
-        color: var(--grey-font);
-    }
-
-    a {
-        display: grid;
-        text-decoration: none;
-        color: var(--grey-font);
-    }
-
-    a:hover{
-        color: var(--red-hover-font);
-    }
-
-
-    .footer__left {
-        display: grid;
-        justify-content: start;
-        grid-template-columns: repeat(3, auto) ;
-        column-gap: 12px;
-        align-items: center;
-    }
-
-    .footer__right {
-        display: grid;
-        justify-content: start;
-        align-items: center;
-    }
-
     
     @media (min-width: 600px) {
         :root{
@@ -261,8 +221,7 @@
             font-size: var(--font-big);
         }
 
-        .header__button > span,
-        .title__button > span {
+        .header__button > span {
             display: grid;
             margin-left: 0;
             margin-right: 13px;
@@ -286,14 +245,4 @@
             font-size: var(--font-small);
         }
 
-        .footer{
-            grid-area: footer;
-            grid-template-columns: 1fr 1fr;
-            padding: 8px var(--margins);
-            background-color: var(--grey-bg);
-        }
-
-        .footer__right {
-            justify-content: end;
-        }
     }

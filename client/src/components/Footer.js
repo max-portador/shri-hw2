@@ -1,15 +1,25 @@
-import React from "react";
+import React, {useContext} from "react";
+import {FooterContext} from "../hooks/footer.context";
+import "./Footer.css"
+
+
 
 export function Footer(){
+
+    const {links, copyright} = useContext(FooterContext)
+
+
     return (
         <footer className="footer">
             <div className="footer__left">
-                <a href="#" className="footer__support">Support</a>
-                <a href="#" className="footer_support">Learning</a>
-                <a href="#" className="footer_support">Русская версия</a>
+                {
+                    links.map( (link, id) => (
+                    <a href={link.href} className="footer__support" key={id}>{link.label}</a>
+                    ))
+                }
             </div>
             <div className="footer__right">
-                © 2021 Maksim Shabanov
+                © {copyright}
             </div>
         </footer>
     )
