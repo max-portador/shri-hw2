@@ -1,16 +1,21 @@
 .footer{
     display: grid;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
     grid-area: footer;
     grid-template-columns: 1fr;
     row-gap: 8px;
 
-    padding: 12px var(--margins);
+    padding: 12px 0;
     background-color: var(--grey-bg);
     line-height: 18px;
 
     font-size: var(--font-small);
     letter-spacing: 0.06px;
     color: var(--grey-font);
+
+    z-index: 1;
 }
 
 a {
@@ -30,23 +35,27 @@ a:hover{
     grid-template: 1fr/ repeat(3, auto);
     column-gap: 12px;
     align-items: center;
+    padding-left: var(--margins);
 }
 
 .footer__right {
     display: grid;
     justify-content: start;
     align-items: center;
+    padding: 0 var(--margins);
 }
 
 @media (min-width: 600px) {
     .footer{
+        position: fixed;
         grid-area: footer;
         grid-template-columns: 1fr 1fr;
-        padding: 8px var(--margins);
+        padding: 8px 0;
         background-color: var(--grey-bg);
     }
 
     .footer__right {
         justify-content: end;
+
     }
 }

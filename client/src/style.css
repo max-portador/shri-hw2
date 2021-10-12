@@ -35,19 +35,23 @@
 
 
     html, body{
-        height: 100%;
+        /*height: 100%;*/
         margin: 0;
         padding: 0;
     }
 
+    body{
+        margin-bottom: var(--footer-height);
+    }
+
     #root {
         display: grid;
-        grid-template: auto 1fr auto / var(--margins) 1fr var(--margins);
+        grid-template: auto 100% max-content / var(--margins) 1fr var(--margins);
         grid-template-areas: 
         ' . header . '
         '. main . '
-        'footer footer footer';
-        height: 100%;
+        '. footer .';
+        height: 100vh;
         padding: 0;
         margin: 0;
         font-family: YS Text, serif;
@@ -154,6 +158,7 @@
 
     .main__content  {
         display: grid;
+        padding-bottom: var(--footer-height);
     }
 
     .main__content > img {
@@ -165,7 +170,7 @@
     .main__content > label {
         display: grid;
         justify-self: center;
-        height: 32px;
+        line-height: 16px;
         text-align: center;
         margin-bottom: 24px;
         font-size: var(--font-small);
@@ -174,7 +179,6 @@
     .main__button {
         display: grid;
         border-radius: 4px;
-        height: 36px;
         justify-self: center;
         align-content: center;
         font-size: var(--font-small);
@@ -182,6 +186,7 @@
 
     .main__button > span {
         margin: 0 20px;
+        line-height: 36px;
     }
 
 
