@@ -18,10 +18,11 @@ export const HistoryMain = () => {
 
     return (
         <React.Fragment>
+            {loading && <Loader style={{ paddingTop: "8rem", alignself: "start"}}/>}
             <main className="history">
 
                 <div className="history__cards">
-                    {loading && <Loader style={{ paddingTop: "8rem", alignself: "start"}}/>}
+
                     { builds.slice(0, shown).map(build => {
                             return <BuildCard data={build} status={status} key={build.num}/>
                         })

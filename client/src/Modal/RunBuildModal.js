@@ -72,8 +72,9 @@ export default () => {
             </button>
             { state.isOpen && (
                 <div className="modal" onClick={checkClick} onKeyDown={checkKeyDown}>
+                    { state.isLoading && (Loader())}
                         <form className="modal__body" onSubmit={handleSubmit(onRunningBuild)}>
-                            { state.isLoading && (Loader())}
+
                             <label className="modal__title">
                                 New build
                             </label>
