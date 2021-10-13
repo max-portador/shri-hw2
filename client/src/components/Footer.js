@@ -1,14 +1,10 @@
 import React, {useContext} from "react";
-import {FooterContext} from "../hooks/footer.context";
+import {connect} from "react-redux";
 import "./Footer.css"
 
 
 
-export function Footer(){
-
-    const {links, copyright} = useContext(FooterContext)
-
-
+function Footer({links, copyright}){
     return (
         <footer className="footer">
             <div className="footer__left">
@@ -24,3 +20,12 @@ export function Footer(){
         </footer>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        links: state.footer.links,
+        copyright: state.footer.copyright
+    }
+}
+
+export default connect(mapStateToProps, null)(Footer)

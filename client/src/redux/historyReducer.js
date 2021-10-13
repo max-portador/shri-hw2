@@ -1,10 +1,8 @@
-import {createContext} from "react";
-import successSVG from "../assets/circle-sucsess.svg"
-import failSVG from "../assets/circle-failed.svg"
-import updateSVG from "../assets/circle-update.svg"
+import successSVG from "../assets/circle-sucsess.svg";
+import failSVG from "../assets/circle-failed.svg";
+import updateSVG from "../assets/circle-update.svg";
 
-
-export const HistoryContext = createContext({
+const initialState = {
     builds: [
         {
             status: "ok",
@@ -111,4 +109,8 @@ export const HistoryContext = createContext({
             statusColor: "#FF9A00",
         },
     }
-})
+}
+
+export const historyReducer = (state=initialState, action) => {
+    return state
+}

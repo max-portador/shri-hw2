@@ -1,10 +1,9 @@
-import React, {useContext, useState} from "react";
-import {HistoryContext} from "../hooks/history.context";
+import React, {useState} from "react";
 import {BuildCard} from "./BuildCard";
 import Loader from "./Loader";
+import {connect} from "react-redux";
 
-export const HistoryMain = () => {
-    const { builds, status } = useContext(HistoryContext)
+const HistoryMain = ({ builds, status }) => {
     const [shown, setShown] = useState(3)
     const [loading, setLoading] = useState(false)
     const showMore = () => {
@@ -18,7 +17,7 @@ export const HistoryMain = () => {
 
     return (
         <React.Fragment>
-            {loading && <Loader style={{ paddingTop: "8rem", alignself: "start"}}/>}
+            {loading && <Loader/>}
             <main className="history">
 
                 <div className="history__cards">
@@ -36,3 +35,12 @@ export const HistoryMain = () => {
         </React.Fragment>
     )
 }
+
+const mapStateToProps = state => {
+    return {
+        builds: state.history.builds,
+        status: state.history.status
+    }
+}
+
+export default connect(mapStateToProps, null)(HistoryMain)

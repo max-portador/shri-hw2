@@ -1,11 +1,12 @@
-import React, {useContext, useState} from "react"
-import {AuthContext} from "../hooks/auth.context"
+import React, {useState} from "react"
+import Loader from "./Loader";
+import {SettingsInput} from "./SettingsInput"
 import {useHistory} from "react-router-dom"
 import {useForm} from "react-hook-form"
 import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
-import {SettingsInput} from "./SettingsInput"
-import Loader from "./Loader";
+import {login, logout} from "../redux/actions";
+import {connect} from "react-redux"
 
 
 // Прописываем правила валидации полей input
@@ -28,9 +29,8 @@ const scheme = yup.object().shape({
 })
 
 
-export function SettingsMain(){
+const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout, login, logout}) => {
 
-    const auth = useContext(AuthContext)
     const history = useHistory()
     const [loading, setLoading] = useState(false)
 
@@ -43,7 +43,7 @@ export function SettingsMain(){
     const loginHandler = data => {
         setLoading(true)
         setTimeout( () => {
-            auth.login(data.repository, data.buildCommand, data.mainBranch, data.syncTimeout)
+            login(data.repository, data.buildCommand, data.mainBranch, data.syncTimeout)
             setLoading(false)
             history.push("/history")
         }, 2000)
@@ -51,7 +51,7 @@ export function SettingsMain(){
 
     const logoutHandler = event => {
         event.preventDefault()
-        auth.logout()
+        logout()
         history.push('/')
     }
 
@@ -69,23 +69,18 @@ export function SettingsMain(){
                     <div className="settings__label">
                         <label>GitHub repository</label>
                        <span className="asterics"> * </span>
-                        {
-
-                            formState.errors.repository &&
-                            ( <div className="error">{formState.errors.repository.message}
-                            </div>)
+                        { formState.errors.repository &&
+                            ( <div className="error">{formState.errors.repository.message}</div>)
                         }
                     </div>
 
-                    <SettingsInput className={(
-                        formState.errors.repository ? "settings__input error_input" : "settings__input"
-                    )}
+                    <SettingsInput className={(formState.errors.repository ? "settings__input error_input"
+                                                                           : "settings__input" )}
                                    placeholder="user-name/repo-name"
                                    id="repository"
                                    name="repository"
-                                   defaultValue={auth.repository}
+                                   defaultValue={repository}
                                    {...register("repository")}
-
                     />
 
                     <div className="settings__label">
@@ -95,12 +90,11 @@ export function SettingsMain(){
                             <div className="error">{formState.errors.buildCommand.message}</div>
                         )}
                     </div>
-                    <SettingsInput className={(
-                        formState.errors.buildCommand ? "settings__input error_input" : "settings__input"
-                    )}
+                    <SettingsInput className={(formState.errors.buildCommand ? "settings__input error_input"
+                                                                             : "settings__input")}
                                    id="buildCommand"
                                    name="buildCommand"
-                                   defaultValue={auth.buildCommand}
+                                   defaultValue={buildCommand}
                                    {...register("buildCommand")}
                     />
                     <div className="settings__label">
@@ -109,31 +103,29 @@ export function SettingsMain(){
                             <div className="error">{formState.errors.mainBranch.message}</div>
                         )}
                     </div>
-                    <SettingsInput className={(
-                        formState.errors.mainBranch ? "settings__input error_input" : "settings__input"
-                    )}
+                    <SettingsInput className={( formState.errors.mainBranch ? "settings__input error_input"
+                                                                            : "settings__input")}
                            id="mainBranch"
                            name="mainBranch"
-                           defaultValue={auth.mainBranch}
+                           defaultValue={mainBranch}
                            {...register("mainBranch")}
                     />
                     <div className="settings__sync">
                         <span className="settings__label">Synchronize every</span>
-                        <SettingsInput className={(
-                            formState.errors.syncTimeout ? "settings__input error_input" : "settings__input"
-                        )}
+                        <SettingsInput className={( formState.errors.syncTimeout ? "settings__input error_input"
+                                                                                 : "settings__input")}
                                type="number"
                                id="sync"
                                name="syncTimeout"
-                               defaultValue={auth.syncTimeout}
+                               defaultValue={syncTimeout}
                                {...register("syncTimeout")}
                         />
                         <span className="settings__label"> minutes </span>
-
                     </div>
+
                     {formState.errors.syncTimeout && (
-                        <div className="error">{formState.errors.syncTimeout.message}</div>
-                    )}
+                        <div className="error">{formState.errors.syncTimeout.message}</div>)}
+
                     <div className="settings__buttons">
                         <button className={(loading ? " btn_disabled" : "btn_yellow")}
                                 type="submit">
@@ -141,7 +133,7 @@ export function SettingsMain(){
                         </button>
 
                         <button className={(loading ? " btn_disabled" : "btn_grey")}
-                                onClick={logoutHandler}  >
+                                onClick={logoutHandler}>
                             <span>Cancel</span>
                         </button>
                     </div>
@@ -150,3 +142,16 @@ export function SettingsMain(){
         </React.Fragment>
     )
 }
+
+const mapStateToolProps = state => {
+    return {
+        repository: state.auth.repository,
+        buildCommand: state.auth.buildCommand,
+        mainBranch: state.auth.mainBranch,
+        syncTimeout: state.auth.syncTimeout
+    }
+}
+
+const mapDispatchToProps = {login, logout}
+
+export default connect(mapStateToolProps, mapDispatchToProps)(SettingsMain)

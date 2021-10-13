@@ -1,19 +1,17 @@
-import React, {useContext} from "react"
+import React from "react"
 import {useHistory, useLocation} from "react-router-dom";
-import {AuthContext} from "../hooks/auth.context";
 import RunBuildModal from "../Modal/RunBuildModal";
 import gearSVG from "../assets/gear.svg";
+import {connect} from "react-redux";
 
-export const Header = () => {
+const Header = ({repository}) => {
     const history = useHistory()
     const location = useLocation()
-    const {repository} = useContext(AuthContext)
 
     const redirectToSettingsPage = event => {
         event.preventDefault()
         history.push('/settings')
     }
-
 
     return (
         <header className="header">
@@ -21,7 +19,6 @@ export const Header = () => {
                 <label className="title__label">{repository}</label>
                 : <label className="header__label"> School CI Server </label>
             }
-
 
             {
                 location.pathname === '/' &&
@@ -31,6 +28,7 @@ export const Header = () => {
                     <span> Settings </span>
                 </button>
             }
+
             {   location.pathname === "/history" &&
                 <section className="title__btns">
                     <RunBuildModal/>
@@ -38,12 +36,16 @@ export const Header = () => {
                             type="submit"
                             onClick={redirectToSettingsPage}
                     >
-                        <img src={gearSVG} alt="settings">
-                        </img>
+                    <img src={gearSVG} alt="settings"/>
                     </button>
                 </section>
             }
-
         </header>
     )
 }
+
+const mapStateToProps = state => {
+    return {repository: state.auth.repository}
+}
+
+export default connect(mapStateToProps, null) (Header)

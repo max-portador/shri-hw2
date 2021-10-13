@@ -8,8 +8,8 @@ import './Modal.css'
 
 const scheme = yup.object().shape({
     commitHash: yup.string()
-        .required("Build command is a required field")
-        .matches(/^[^ЁёА-я]*$/, "Invalid build command"),
+        .required("Commit hash is a required field")
+        .matches(/^[^ЁёА-я]*$/, "Invalid commit hash"),
 })
 
 
