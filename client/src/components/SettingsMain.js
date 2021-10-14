@@ -1,12 +1,12 @@
-import React, {useState} from "react"
-import Loader from "./Loader";
-import {SettingsInput} from "./SettingsInput"
+import React from "react"
+import {connect, useDispatch, useSelector} from "react-redux"
 import {useHistory} from "react-router-dom"
 import {useForm} from "react-hook-form"
-import * as yup from 'yup'
 import {yupResolver} from "@hookform/resolvers/yup";
-import {login, logout} from "../redux/actions";
-import {connect} from "react-redux"
+import * as yup from 'yup'
+import {SettingsInput} from "./SettingsInput"
+import {hideLoaderAuth, login, logout, resetShownCards, showLoaderAuth} from "../redux/actions";
+import Loader from "./Loader";
 
 
 // Прописываем правила валидации полей input
@@ -29,10 +29,12 @@ const scheme = yup.object().shape({
 })
 
 
-const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout, login, logout}) => {
+const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout,
+                          login, logout, showLoader, hideLoader, resetShownCards}) => {
 
     const history = useHistory()
-    const [loading, setLoading] = useState(false)
+    const dispatch = useDispatch()
+    const loading = useSelector(state => state.loader.loadingAuth)
 
     const { register, handleSubmit, formState } = useForm({
         mode: "onBlur",
@@ -41,10 +43,10 @@ const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout, login,
     })
 
     const loginHandler = data => {
-        setLoading(true)
+        dispatch(showLoader())
         setTimeout( () => {
             login(data.repository, data.buildCommand, data.mainBranch, data.syncTimeout)
-            setLoading(false)
+            dispatch(hideLoader())
             history.push("/history")
         }, 2000)
     }
@@ -52,6 +54,7 @@ const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout, login,
     const logoutHandler = event => {
         event.preventDefault()
         logout()
+        resetShownCards()
         history.push('/')
     }
 
@@ -152,6 +155,12 @@ const mapStateToolProps = state => {
     }
 }
 
-const mapDispatchToProps = {login, logout}
+const mapDispatchToProps = {
+    login,
+    logout,
+    resetShownCards,
+    showLoader: showLoaderAuth,
+    hideLoader: hideLoaderAuth
+}
 
 export default connect(mapStateToolProps, mapDispatchToProps)(SettingsMain)

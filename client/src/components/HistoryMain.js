@@ -2,15 +2,15 @@ import React, {useState} from "react";
 import {BuildCard} from "./BuildCard";
 import Loader from "./Loader";
 import {connect} from "react-redux";
+import {addShownCards, hideLoaderHistory, showLoaderHistory} from "../redux/actions";
 
-const HistoryMain = ({ builds, status }) => {
-    const [shown, setShown] = useState(3)
-    const [loading, setLoading] = useState(false)
+const HistoryMain = ({ builds, status, shown, loading, addShownCards, showLoader, hideLoader }) => {
     const showMore = () => {
-        setLoading(true)
+        if (shown >= builds.length) return
+        showLoader()
         setTimeout(()=> {
-            setLoading(false)
-            setShown(shown + 3)
+            hideLoader()
+            addShownCards()
         } , 2000)
 
     }
@@ -27,9 +27,14 @@ const HistoryMain = ({ builds, status }) => {
                         })
                     }
                 </div>
-                <button className="history__showmore btn_grey" onClick={showMore}>
-                    <span>Show more</span>
-                </button>
+                <div className="history__showmore">
+                    <button className={(shown >= builds.length ? "history__btn btn_disabled"
+                                                               : "history__btn btn_grey")}
+                            onClick={showMore}>
+                        <span>Show more</span>
+                    </button>
+                </div>
+
             </main>
 
         </React.Fragment>
@@ -39,8 +44,16 @@ const HistoryMain = ({ builds, status }) => {
 const mapStateToProps = state => {
     return {
         builds: state.history.builds,
-        status: state.history.status
+        status: state.history.status,
+        shown: state.loader.countShown,
+        loading: state.loader.loadingHistory
     }
 }
 
-export default connect(mapStateToProps, null)(HistoryMain)
+const mapDispatchToProps = {
+    addShownCards,
+    showLoader: showLoaderHistory,
+    hideLoader: hideLoaderHistory
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HistoryMain)

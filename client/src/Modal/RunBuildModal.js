@@ -1,10 +1,19 @@
-import React, {useState} from "react";
+import React from "react";
 import {useForm} from "react-hook-form";
+import {connect} from "react-redux";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Loader from "../components/Loader";
 import playSVG from "../assets/play.svg";
 import './Modal.css'
+import {
+    hideLoaderHistory,
+    hideLoaderModal,
+    hideModal,
+    showLoaderHistory,
+    showLoaderModal,
+    showModal
+} from "../redux/actions";
 
 const scheme = yup.object().shape({
     commitHash: yup.string()
@@ -13,11 +22,7 @@ const scheme = yup.object().shape({
 })
 
 
-export default () => {
-
-    const [state, setState] = useState({
-        isOpen: false,
-        isLoading: false})
+const Modal = ({isOpen, isLoading, showModal, hideModal, showLoader, hideLoader}) => {
 
     const { register, handleSubmit, formState, reset, clearErrors } = useForm({
         mode: "onSubmit",
@@ -26,32 +31,24 @@ export default () => {
 
     const checkClick = event => {
         if (event.target.getAttribute("class") === "modal") {
-            setState({isOpen: false})
+            hideModal()
         }
     }
 
     const onRunningBuild = () => {
-        setState({
-            isOpen: true,
-            isLoading: true
-        })
+        showLoader()
         setTimeout(() => {
             clearErrors()
             reset({"commitHash": ""})
-            setState({
-                isOpen: false,
-                isLoading: false
-            })
+            hideLoader()
+            hideModal()
         }, 2000)
     }
 
     const onCancel = () => {
         clearErrors()
         reset({"commitHash": ""})
-        setState({
-            isOpen: false,
-            isLoading: false
-        })
+        hideModal()
     }
 
     const checkKeyDown = event => {
@@ -63,51 +60,67 @@ export default () => {
         return <React.Fragment>
             <button className="header__button btn_grey"
                     type="submit"
-                    onClick={() => setState({isOpen: true})}>
-                <img src={playSVG} alt="run">
-                </img>
-                <span className="title__span">
-                Run build
-            </span>
+                    onClick={showModal}>
+                <img src={playSVG} alt="run" />
+                <span className="title__span"> Run build </span>
             </button>
-            { state.isOpen && (
+            { isOpen && (
                 <div className="modal" onClick={checkClick} onKeyDown={checkKeyDown}>
-                    { state.isLoading && (Loader())}
-                        <form className="modal__body" onSubmit={handleSubmit(onRunningBuild)}>
+                { isLoading && (Loader())}
+                    <form className="modal__body"
+                          onSubmit={handleSubmit(onRunningBuild)}
+                    >
 
-                            <label className="modal__title">
-                                New build
-                            </label>
-                            <label className="modal__subtitle">
-                                Enter the commit hash which you want to build.
-                            </label>
-                            {formState.errors.commitHash && (
-                                <div className="error">{formState.errors.commitHash.message}</div>
-                            )}
-                            <input type="search"
-                                   className={(
-                                                formState.errors.commitHash
-                                                    ? "modal__input error_input"
-                                                    : "modal__input"
-                                             )}
-                                   placeholder="Commit hash"
-                                   name="commitHash"
-                                   autoFocus={true}
-                                   defaultValue=""
-                                   {...register("commitHash")}
-                                   onKeyDown={checkKeyDown}
-                            />
+                        <label className="modal__title"> New build </label>
+                        <label className="modal__subtitle">
+                            Enter the commit hash which you want to build.
+                        </label>
+
+                        {formState.errors.commitHash && (
+                            <div className="error">{formState.errors.commitHash.message}</div>
+                        )}
+
+                        <input type="search"
+                               className={(formState.errors.commitHash ? "modal__input error_input"
+                                                                       : "modal__input")}
+                               placeholder="Commit hash"
+                               name="commitHash"
+                               autoFocus={true}
+                               defaultValue=""
+                               {...register("commitHash")}
+                               onKeyDown={checkKeyDown}
+                        />
                             <div className="modal__buttons" onKeyDown={checkKeyDown}>
-                                <button className={(state.isLoading ? " btn_disabled" : "btn_yellow")} type="submit"
-                                ><span>Run build</span></button>
-                                <button className={(state.isLoading ? " btn_disabled" : "btn_white")}
-                                        onClick={onCancel}
-                                ><span>Cancel</span></button>
+                                <button className={(isLoading ? " btn_disabled"
+                                                              : "btn_yellow")}
+                                                    type="submit">
+                                    <span>Run build</span>
+                                </button>
+                                <button className={(isLoading ? " btn_disabled"
+                                                              : "btn_white")}
+                                        onClick={onCancel} >
+                                    <span>Cancel</span>
+                                </button>
                             </div>
                         </form>
                     </div>)
             }
-
         </React.Fragment>
-
 }
+
+const mapStateToProps = state => {
+    return {
+        isOpen: state.loader.isModalOpen,
+        isLoading: state.loader.loadingModal
+    }
+}
+
+const mapDispatchToProps = {
+            showLoader: showLoaderModal,
+            hideLoader: hideLoaderModal,
+            showModal,
+            hideModal
+   }
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(Modal)

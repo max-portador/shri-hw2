@@ -157,12 +157,16 @@ hr {
 
 .history__showmore{
     display: grid;
-    margin-bottom: 20px;
+    height: 116px;
+}
+
+ .history__btn{
+    display: grid;
     width: fit-content;
     height: fit-content;
 }
 
-.history__showmore > span {
+.history__btn > span {
     font-size: 13px;
     line-height: 28px;
     margin: 0 13px;
@@ -227,5 +231,10 @@ hr {
     .card__datetime {
         grid-template: repeat(2, 1fr) / 1fr;
         row-gap: 12px;
+    }
+
+    .history__showmore{
+        display: grid;
+        height: 82px;
     }
 }
