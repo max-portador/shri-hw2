@@ -7,7 +7,9 @@ export const HistoryMain = () => {
     const { builds, status } = useContext(HistoryContext)
     const [shown, setShown] = useState(3)
     const [loading, setLoading] = useState(false)
+
     const showMore = () => {
+        if (shown >= builds.length) return
         setLoading(true)
         setTimeout(()=> {
             setLoading(false)
@@ -28,7 +30,10 @@ export const HistoryMain = () => {
                         })
                     }
                 </div>
-                <button className="history__showmore btn_grey" onClick={showMore}>
+                <button className={(shown >= builds.length ? "history__showmore btn_disabled"
+                                                           : "history__showmore btn_grey" )}
+
+                        onClick={showMore}>
                     <span>Show more</span>
                 </button>
             </main>
