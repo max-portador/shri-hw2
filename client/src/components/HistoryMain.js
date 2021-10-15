@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import {BuildCard} from "./BuildCard";
 import Loader from "./Loader";
 import {connect} from "react-redux";
@@ -28,10 +28,10 @@ const HistoryMain = ({ builds, status, shown, loading, addShownCards, showLoader
                     }
                 </div>
                 <div className="history__showmore">
-                    <button className={(shown >= builds.length ? "history__btn btn_disabled"
-                                                               : "history__btn btn_grey")}
+                    <button className={["history__showmore__btn", shown >= builds.length
+                        ? "btn_disabled" : "btn_grey"].join(" ")}
                             onClick={showMore}>
-                        <span>Show more</span>
+                        <span className="history__showmore__span">Show more</span>
                     </button>
                 </div>
 

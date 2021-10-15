@@ -77,8 +77,8 @@ const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout,
                         }
                     </div>
 
-                    <SettingsInput className={(formState.errors.repository ? "settings__input error_input"
-                                                                           : "settings__input" )}
+                    <SettingsInput className={["settings__input", formState.errors.repository
+                                                 ? "error_input" : ""].join(' ').trim()}
                                    placeholder="user-name/repo-name"
                                    id="repository"
                                    name="repository"
@@ -93,8 +93,8 @@ const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout,
                             <div className="error">{formState.errors.buildCommand.message}</div>
                         )}
                     </div>
-                    <SettingsInput className={(formState.errors.buildCommand ? "settings__input error_input"
-                                                                             : "settings__input")}
+                    <SettingsInput className={["settings__input", formState.errors.buildCommand
+                                             ? "error_input" : ""].join(' ').trim()}
                                    id="buildCommand"
                                    name="buildCommand"
                                    defaultValue={buildCommand}
@@ -106,8 +106,8 @@ const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout,
                             <div className="error">{formState.errors.mainBranch.message}</div>
                         )}
                     </div>
-                    <SettingsInput className={( formState.errors.mainBranch ? "settings__input error_input"
-                                                                            : "settings__input")}
+                    <SettingsInput className={["settings__input", formState.errors.mainBranch
+                                                ? "error_input" : ""].join(' ').trim()}
                            id="mainBranch"
                            name="mainBranch"
                            defaultValue={mainBranch}
@@ -115,8 +115,8 @@ const SettingsMain = ({repository, buildCommand, mainBranch, syncTimeout,
                     />
                     <div className="settings__sync">
                         <span className="settings__label">Synchronize every</span>
-                        <SettingsInput className={( formState.errors.syncTimeout ? "settings__input error_input"
-                                                                                 : "settings__input")}
+                        <SettingsInput className={["settings__input", formState.errors.syncTimeout
+                                                    ? "error_input" : ""].join(' ').trim()}
                                type="number"
                                id="sync"
                                name="syncTimeout"
