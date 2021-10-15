@@ -2,8 +2,7 @@
     grid-area: main;
     display: grid;
     align-content: start;
-    margin-bottom: 68px + var(--footer-height);
-
+    height: calc(100vh - var(--header-height) - var(--footer-height));
 }
 
 .history__cards {
@@ -157,12 +156,17 @@ hr {
 
 .history__showmore{
     display: grid;
-    margin-bottom: 20px;
-    width: fit-content;
+    height: calc(var(--footer-height) + 20px + 28px);
+
+}
+
+.history__showmore__btn {
+    display: grid;
+    width: 100%;
     height: fit-content;
 }
 
-.history__showmore > span {
+.history__showmore__span {
     font-size: 13px;
     line-height: 28px;
     margin: 0 13px;
@@ -227,5 +231,17 @@ hr {
     .card__datetime {
         grid-template: repeat(2, 1fr) / 1fr;
         row-gap: 12px;
+    }
+
+    .history__showmore__btn {
+        display: grid;
+        width: fit-content;
+        height: fit-content;
+    }
+
+    .history__showmore__span {
+        font-size: 13px;
+        line-height: 28px;
+        margin: 0 20px;
     }
 }

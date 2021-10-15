@@ -3,6 +3,7 @@
     display: grid;
     grid-area: main;
     margin-top: 8px;
+    height: calc(100vh - var(--header-height) - var(--footer-height));
 
 }
 

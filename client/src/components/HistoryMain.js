@@ -30,12 +30,14 @@ export const HistoryMain = () => {
                         })
                     }
                 </div>
-                <button className={(shown >= builds.length ? "history__showmore btn_disabled"
-                                                           : "history__showmore btn_grey" )}
+                <div className="history__showmore">
+                    <button className={["history__showmore__btn", shown >= builds.length
+                                        ? "btn_disabled" : "btn_grey"].join(" ")}
+                            onClick={showMore}>
+                        <span className="history__showmore__span">Show more</span>
+                    </button>
+                </div>
 
-                        onClick={showMore}>
-                    <span>Show more</span>
-                </button>
             </main>
 
         </React.Fragment>
