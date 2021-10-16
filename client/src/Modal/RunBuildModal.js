@@ -1,10 +1,11 @@
-import React, {useState} from "react";
+import React, {useContext, useState} from "react";
 import {useForm} from "react-hook-form";
 import {yupResolver} from "@hookform/resolvers/yup";
 import * as yup from "yup";
 import Loader from "../components/Loader";
 import playSVG from "../assets/play.svg";
 import './Modal.css'
+import {HistoryContext} from "../hooks/history.context";
 
 const scheme = yup.object().shape({
     commitHash: yup.string()
@@ -18,6 +19,11 @@ export default () => {
     const [state, setState] = useState({
         isOpen: false,
         isLoading: false})
+
+    const { builds} = useContext(HistoryContext)
+
+    const commits = builds.map(build => build.hash)
+                            .filter((value, id, arr) => arr.indexOf(value) === id)
 
     const { register, handleSubmit, formState, reset, clearErrors } = useForm({
         mode: "onSubmit",
@@ -94,6 +100,8 @@ export default () => {
                                    name="commitHash"
                                    autoFocus={true}
                                    defaultValue=""
+                                   list="hashes"
+                                   autoComplete="off"
                                    {...register("commitHash")}
                                    onKeyDown={checkKeyDown}
                             />
@@ -106,7 +114,11 @@ export default () => {
                             </div>
                         </form>
                     </div>)
+
             }
+            <datalist id="hashes">
+                {commits.map(hash => (<option value={hash}/>)) }
+            </datalist>
 
         </React.Fragment>
 
