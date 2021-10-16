@@ -7,10 +7,8 @@ import Loader from "../components/Loader";
 import playSVG from "../assets/play.svg";
 import './Modal.css'
 import {
-    hideLoaderHistory,
     hideLoaderModal,
     hideModal,
-    showLoaderHistory,
     showLoaderModal,
     showModal
 } from "../redux/actions";
@@ -18,11 +16,12 @@ import {
 const scheme = yup.object().shape({
     commitHash: yup.string()
         .required("Commit hash is a required field")
-        .matches(/^[^ЁёА-я]*$/, "Invalid commit hash"),
+        .matches(/^[^ЁёА-я]*$/, "Invalid commit hash")
+        .min(7, 'Commit hash is too short')
 })
 
 
-const Modal = ({isOpen, isLoading, showModal, hideModal, showLoader, hideLoader}) => {
+const Modal = ({isOpen, isLoading, showModal, hideModal, showLoader, hideLoader, commits}) => {
 
     const { register, handleSubmit, formState, reset, clearErrors } = useForm({
         mode: "onSubmit",
@@ -87,6 +86,8 @@ const Modal = ({isOpen, isLoading, showModal, hideModal, showLoader, hideLoader}
                                name="commitHash"
                                autoFocus={true}
                                defaultValue=""
+                               list="hashes"
+                               autoComplete="off"
                                {...register("commitHash")}
                                onKeyDown={checkKeyDown}
                         />
@@ -105,13 +106,21 @@ const Modal = ({isOpen, isLoading, showModal, hideModal, showLoader, hideLoader}
                         </form>
                     </div>)
             }
+
+            <datalist id="hashes">
+                {commits.map(hash => (<option value={hash}/>)) }
+            </datalist>
+
         </React.Fragment>
 }
 
 const mapStateToProps = state => {
     return {
         isOpen: state.loader.isModalOpen,
-        isLoading: state.loader.loadingModal
+        isLoading: state.loader.loadingModal,
+        commits: state.history.builds
+            .map(build => build.hash)
+            .filter((value, id, arr) => arr.indexOf(value) === id)
     }
 }
 
